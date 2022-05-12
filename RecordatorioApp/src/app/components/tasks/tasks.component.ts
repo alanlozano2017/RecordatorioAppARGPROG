@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-import { TASKS } from './../../mock-tasks';
+import { TaskService } from './../../service/task.service';
 import { Task } from './../../Task';
 
 
@@ -10,10 +9,16 @@ import { Task } from './../../Task';
   styleUrls: ['./tasks.component.css']
 })
 export class TasksComponent implements OnInit {
-  tasks: Task[] = TASKS;
-  constructor() { }
+  tasks: Task[] = [];
+  constructor( private taskService: TaskService ) {
+    
+   }
 
   ngOnInit(): void {
+    //promesa getTask
+    this.taskService.getTasks().subscribe((tasks) => {
+      this.tasks = tasks
+    });
   }
 
 }
